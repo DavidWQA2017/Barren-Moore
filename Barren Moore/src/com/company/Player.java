@@ -1,5 +1,7 @@
 package com.company;
 
+import java.util.ArrayList;
+
 /**
  * Created by Administrator on 28/07/2017.
  */
@@ -7,6 +9,18 @@ public class Player
 {
     int xPos = 0;
     int yPos = 0;
+    int health;
+    int defense;
+    int attack ;
+
+    public Player(int xPos, int yPos, int health, int defense, int attack)
+    {
+        this.xPos =xPos;
+        this.yPos =yPos;
+        this.health= health;
+        this.defense = defense;
+        this.attack= attack;
+    }
 
     public int getxPos() {
         return xPos;
@@ -24,7 +38,7 @@ public class Player
         this.yPos = yPos;
     }
 
-    public void movePlayer(String input , Player player1, Treasure goal)
+    public void movePlayer(String input , Player player1, ArrayList<Treasure> spawnedEvents)
     {
       if (input.equals("look"))
       {
@@ -32,20 +46,20 @@ public class Player
       }
       else if (input.equals("north"))
       {
-          movePlayerUp(player1 , goal);
+          movePlayerUp(player1 , spawnedEvents);
       }
       else if (input.equals("south"))
       {
-          movePlayerDown(player1 , goal);
+          movePlayerDown(player1 , spawnedEvents);
       }
       else if (input.equals("east"))
       {
-          movePlayerRight(player1 , goal);
+          movePlayerRight(player1 , spawnedEvents);
 
       }
       else if (input.equals("west"))
       {
-          movePlayerLeft(player1, goal);
+          movePlayerLeft(player1, spawnedEvents);
 
       }
       else
@@ -58,44 +72,44 @@ public class Player
 
     }
 
-    public void movePlayerRight(Player player1 , Treasure goal)
+    public void movePlayerRight(Player player1 , ArrayList<Treasure> spawnedEvents)
     {
         int newPos = player1.getxPos() + 1;
         player1.setxPos(newPos);
-        double distance = objectDistance(player1,  goal);
-        String direction = objectDirection(player1, goal);
+        double distance = objectDistance(player1,  spawnedEvents);
+        String direction = objectDirection(player1, spawnedEvents);
         System.out.println("The dial reads " + distance + " " + direction);
         utilityMessage();
     }
 
-    public void movePlayerLeft(Player player1 , Treasure goal)
+    public void movePlayerLeft(Player player1 , ArrayList<Treasure> spawnedEvents)
     {
         int newPos = player1.getxPos() - 1;
         player1.setxPos(newPos);
-        double distance = objectDistance(player1,  goal);
-        String direction = objectDirection(player1, goal);
+        double distance = objectDistance(player1,  spawnedEvents);
+        String direction = objectDirection(player1, spawnedEvents);
         System.out.println("The dial reads " + distance + " " + direction);
         utilityMessage();
     }
 
-    public void movePlayerUp(Player player1 , Treasure goal)
+    public void movePlayerUp(Player player1 , ArrayList<Treasure> spawnedEvents)
     {
         int newPos = player1.getyPos() + 1;
         player1.setyPos(newPos);
-        double distance = objectDistance(player1,  goal);
-        String direction = objectDirection(player1, goal);
+        double distance = objectDistance(player1,  spawnedEvents);
+        String direction = objectDirection(player1, spawnedEvents);
         System.out.println("The dial reads " + distance + " " + direction);
         utilityMessage();
 
 
     }
 
-    public void movePlayerDown(Player player1 , Treasure goal)
+    public void movePlayerDown(Player player1 , ArrayList<Treasure> spawnedEvents)
     {
         int newPos = player1.getyPos() - 1;
         player1.setyPos(newPos);
-        double distance = objectDistance(player1,  goal);
-        String direction = objectDirection(player1, goal);
+        double distance = objectDistance(player1,  spawnedEvents);
+        String direction = objectDirection(player1, spawnedEvents);
         System.out.println("The dial reads " + distance + " " + direction);
         utilityMessage();
 
@@ -109,23 +123,31 @@ public class Player
         utilityMessage();
     }
 
-    public double objectDistance(Player player1, Treasure goal)
+    public double objectDistance(Player player1, ArrayList<Treasure> spawnedEvents)
     {
-        int a = goal.getxPos() - player1.getxPos();
-        int b = goal.getyPos() - player1.getyPos();
-        double c = Math.sqrt((a*a) + (b * b));
-        System.out.println(c);
-        System.out.println(player1.getxPos());
-        System.out.println(player1.getyPos());
+        double currentDistance = 10;
+        for (int j = 0; j < 2; j++ )
+        {
+            for (int i = 0; i < spawnedEvents.size(); i++)
+            {
+                int a = spawnedEvents.get(i).getxPos() - player1.getxPos();
+                int b = spawnedEvents.get(i).getyPos() - player1.getyPos();
+                double c = Math.sqrt((a * a) + (b * b));
+                if (c < currentDistance)
+                {
+                    currentDistance = c;
+                } else {}
 
-        double distance = c;
 
-        return distance;
+            }
+        }
+        
+        System.out.println(currentDistance);
+        return currentDistance;
     }
 
-    public String objectDirection(Player player1, Treasure goal)
+    public String objectDirection(Player player1, ArrayList<Treasure> spawnedEvents)
     {
-
         String direction = "";
         if (player1.getyPos() < goal.getyPos()  && player1.getxPos() == player1.getxPos())
         {
@@ -159,20 +181,6 @@ public class Player
         {
             direction = "south west";
         }
-        //else if(b < 0 && a == 0)
-        //{
-        //    direction = "south";
-        //}
-        //else if(b > 0 && a == 0)
-       // {
-       //     direction = "north";
-       // }
-       // if (a < 0  && b > 0)
-       // {
-      //      direction = "North West";
-      //  }
-
-
         return direction;
     }
 

@@ -5,9 +5,14 @@ package com.company;
  */
 public class Treasure
 {
-    int xPos = 4;
-    int yPos = 4;
+    int xPos;
+    int yPos;
 
+    public Treasure (int xPos , int yPos)
+    {
+        this.xPos = xPos;
+        this.yPos = yPos;
+    }
 
     public int getxPos() {
         return xPos;

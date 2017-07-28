@@ -5,5 +5,8 @@ package com.company;
  */
 public class TreasureChest extends Treasure
 {
-
+ public TreasureChest (int xPos , int yPos)
+ {
+     super( xPos , yPos);
+ }
 }
