@@ -23,7 +23,7 @@ public class Main {
 
         while(!(player1.getyPos() == goal.getyPos() && player1.getxPos() == goal.getxPos()))
         {
-System.out.println(player1.getyPos() + " " + player1.getxPos() + " treasure " + goal.getyPos() + " " + goal.getxPos());
+            System.out.println(player1.getyPos() + " " + player1.getxPos() + " treasure " + goal.getyPos() + " " + goal.getxPos());
             while (game.getState().equals("input"))
             {
                 input = game.TakeInput();
@@ -35,6 +35,7 @@ System.out.println(player1.getyPos() + " " + player1.getxPos() + " treasure " + 
             {
                 player1.movePlayer(input, player1 , spawnedEvents);
                 game.setState("input");
+                game.checkOnEvent(player1 , spawnedEvents);
             }
 
         }

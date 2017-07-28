@@ -12,6 +12,8 @@ public class Player
     int health;
     int defense;
     int attack ;
+    ArrayList<Weapon> playersWeapon;
+    ArrayList<Armour> playersArmour;
 
     public Player(int xPos, int yPos, int health, int defense, int attack)
     {
@@ -20,6 +22,8 @@ public class Player
         this.health= health;
         this.defense = defense;
         this.attack= attack;
+        playersWeapon = new ArrayList<Weapon>();
+        playersArmour = new ArrayList<Armour>();
     }
 
     public int getxPos() {
@@ -138,51 +142,90 @@ public class Player
                     currentDistance = c;
                 } else {}
 
-
             }
         }
-        
+
         System.out.println(currentDistance);
         return currentDistance;
     }
 
     public String objectDirection(Player player1, ArrayList<Treasure> spawnedEvents)
     {
+        int event = 0;
+        event = getObjectsArrayplace(player1,spawnedEvents);
+
         String direction = "";
-        if (player1.getyPos() < goal.getyPos()  && player1.getxPos() == player1.getxPos())
+        if (player1.getyPos() < spawnedEvents.get(event).getyPos()  && player1.getxPos() == spawnedEvents.get(event).getyPos())
         {
             direction = "north";
         }
-        else if (player1.getyPos() > goal.getyPos()  && player1.getxPos() == goal.getxPos())
+        else if (player1.getyPos() > spawnedEvents.get(event).getyPos()  && player1.getxPos() == spawnedEvents.get(event).getyPos())
         {
             direction = "south";
         }
-        else if (player1.getxPos() < goal.getxPos()  && player1.getyPos() == goal.getyPos())
+        else if (player1.getxPos() < spawnedEvents.get(event).getyPos()  && player1.getyPos() == spawnedEvents.get(event).getyPos())
         {
             direction = "east";
         }
-        else if(player1.getxPos() > goal.getxPos()  && player1.getyPos() == goal.getyPos())
+        else if(player1.getxPos() > spawnedEvents.get(event).getyPos()  && player1.getyPos() == spawnedEvents.get(event).getyPos())
         {
             direction = "west";
         }
-        else if (player1.getxPos() < goal.getxPos()  && player1.getyPos() < goal.getyPos())
+        else if (player1.getxPos() < spawnedEvents.get(event).getyPos()  && player1.getyPos() < spawnedEvents.get(event).getyPos())
         {
             direction = "north east";
         }
-        else if (player1.getxPos() < goal.getxPos()  && player1.getyPos() > goal.getyPos())
+        else if (player1.getxPos() < spawnedEvents.get(event).getyPos()  && player1.getyPos() > spawnedEvents.get(event).getyPos())
         {
             direction = "south east";
         }
-        else if (player1.getxPos() > goal.getxPos()  && player1.getyPos() < goal.getyPos())
+        else if (player1.getxPos() > spawnedEvents.get(event).getyPos()  && player1.getyPos() < spawnedEvents.get(event).getyPos())
         {
             direction = "north west";
         }
-        else if (player1.getxPos() > goal.getxPos()  && player1.getyPos() > goal.getyPos())
+        else if (player1.getxPos() > spawnedEvents.get(event).getyPos()  && player1.getyPos() > spawnedEvents.get(event).getyPos())
         {
             direction = "south west";
         }
         return direction;
     }
+
+    public int getObjectsArrayplace(Player player1,ArrayList<Treasure> spawnedEvents)
+    {
+        double closestEvent = 10;
+        int event= 0;
+        for (int j = 0; j < 2; j++ )
+        {
+            for (int i = 0; i < spawnedEvents.size(); i++)
+            {
+                int a = spawnedEvents.get(i).getxPos() - player1.getxPos();
+                int b = spawnedEvents.get(i).getyPos() - player1.getyPos();
+                double c = Math.sqrt((a * a) + (b * b));
+                if (c < closestEvent)
+                {
+                    event = i;
+                } else {}
+
+            }
+        }
+
+        return event;
+    }
+
+    public void applyItem(Player player1,ArrayList<Treasure> spawnedEvents)
+    {
+        int event = 0;
+        event = getObjectsArrayplace(player1,spawnedEvents);
+        if (spawnedEvents.get(event) instanceof Weapon)
+        {
+            player1.playersWeapon.add((Weapon)spawnedEvents.get(event));
+            spawnedEvents.remove(spawnedEvents.get(event));
+        }else{}
+        System.out.println("current players weapons " + playersWeapon);
+        System.out.println("all events left "+ spawnedEvents);
+
+    }
+
 
     public void utilityMessage()
     {

@@ -12,8 +12,7 @@ public class Enemy
     int health;
     int defense;
     int attack ;
-    ArrayList<Weapon> playersWeapon;
-    ArrayList<Armour> playersArmour;
+
     public Enemy(int xPos , int yPos , int health, int defense , int attack, ArrayList<Weapon> playersWeapon, ArrayList<Armour> playersArmour)
     {
         this.xPos = xPos;
@@ -21,8 +20,7 @@ public class Enemy
         this.health = health;
         this.defense = defense;
         this.attack = attack;
-        playersWeapon = new ArrayList<Weapon>();
-        playersArmour = new ArrayList<Armour>();
+
     }
 
     public int xPos() {
