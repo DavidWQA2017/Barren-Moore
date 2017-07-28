@@ -16,9 +16,9 @@ public class Main {
         System.out.println("You awaken to find yourself in a barren moor.  Try look");
         game.setState(input);
 
-        while(player1.getyPos() != goal.getyPos() && player1.getxPos() != goal.getyPos())
+        while(!(player1.getyPos() == goal.getyPos() && player1.getxPos() == goal.getxPos()))
         {
-
+System.out.println(player1.getyPos() + " " + player1.getxPos() + " treasure " + goal.getyPos() + " " + goal.getxPos());
             while (game.getState().equals("input"))
             {
                 input = game.TakeInput();
@@ -26,16 +26,14 @@ public class Main {
             }
 
 
-
-
-
             while (game.getState().equals("action"))
             {
-                player1.movePlayer(input, player1);
+                player1.movePlayer(input, player1 , goal);
                 game.setState("input");
             }
 
         }
+        System.out.println("game Finished");
 
     }
 }
