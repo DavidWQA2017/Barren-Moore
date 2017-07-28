@@ -27,7 +27,7 @@ public class GameManger
         this.state = state;
     }
 
-    public void checkOnEvent(Player player1, ArrayList<Treasure> spawnedEvents)
+    public void checkOnEvent(Player player1, ArrayList<GameEvent> spawnedEvents)
     {
         int event = player1.getObjectsArrayplace(player1, spawnedEvents);
         if(player1.getxPos() == spawnedEvents.get(event).getxPos() && player1.getyPos() == spawnedEvents.get(event).getyPos())

@@ -15,7 +15,7 @@ public class Main {
         Grid playerMap =  new Grid();
         Grid gameMap = new Grid();
         String input = "input";
-        ArrayList<Treasure> spawnedEvents = new ArrayList<Treasure>();
+        ArrayList<GameEvent> spawnedEvents = new ArrayList<GameEvent>();
         spawnedEvents.add(goal);
         spawnedEvents.add(sword);
         System.out.println("You awaken to find yourself in a barren moor.  Try look");
@@ -37,6 +37,8 @@ public class Main {
                 game.setState("input");
                 game.checkOnEvent(player1 , spawnedEvents);
             }
+
+            ///////Implement way to return Battle as state rather then doing it in the player class //////
 
         }
         System.out.println("game Finished");

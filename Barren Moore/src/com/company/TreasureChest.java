@@ -9,4 +9,5 @@ public class TreasureChest extends Treasure
  {
      super( xPos , yPos);
  }
+
 }

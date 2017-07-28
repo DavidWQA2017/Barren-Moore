@@ -42,7 +42,7 @@ public class Player
         this.yPos = yPos;
     }
 
-    public void movePlayer(String input , Player player1, ArrayList<Treasure> spawnedEvents)
+    public void movePlayer(String input , Player player1, ArrayList<GameEvent> spawnedEvents)
     {
       if (input.equals("look"))
       {
@@ -76,7 +76,7 @@ public class Player
 
     }
 
-    public void movePlayerRight(Player player1 , ArrayList<Treasure> spawnedEvents)
+    public void movePlayerRight(Player player1 , ArrayList<GameEvent> spawnedEvents)
     {
         int newPos = player1.getxPos() + 1;
         player1.setxPos(newPos);
@@ -86,7 +86,7 @@ public class Player
         utilityMessage();
     }
 
-    public void movePlayerLeft(Player player1 , ArrayList<Treasure> spawnedEvents)
+    public void movePlayerLeft(Player player1 , ArrayList<GameEvent> spawnedEvents)
     {
         int newPos = player1.getxPos() - 1;
         player1.setxPos(newPos);
@@ -96,7 +96,7 @@ public class Player
         utilityMessage();
     }
 
-    public void movePlayerUp(Player player1 , ArrayList<Treasure> spawnedEvents)
+    public void movePlayerUp(Player player1 , ArrayList<GameEvent> spawnedEvents)
     {
         int newPos = player1.getyPos() + 1;
         player1.setyPos(newPos);
@@ -108,7 +108,7 @@ public class Player
 
     }
 
-    public void movePlayerDown(Player player1 , ArrayList<Treasure> spawnedEvents)
+    public void movePlayerDown(Player player1 , ArrayList<GameEvent> spawnedEvents)
     {
         int newPos = player1.getyPos() - 1;
         player1.setyPos(newPos);
@@ -127,7 +127,7 @@ public class Player
         utilityMessage();
     }
 
-    public double objectDistance(Player player1, ArrayList<Treasure> spawnedEvents)
+    public double objectDistance(Player player1, ArrayList<GameEvent> spawnedEvents)
     {
         double currentDistance = 10;
         for (int j = 0; j < 2; j++ )
@@ -149,7 +149,7 @@ public class Player
         return currentDistance;
     }
 
-    public String objectDirection(Player player1, ArrayList<Treasure> spawnedEvents)
+    public String objectDirection(Player player1, ArrayList<GameEvent> spawnedEvents)
     {
         int event = 0;
         event = getObjectsArrayplace(player1,spawnedEvents);
@@ -190,7 +190,7 @@ public class Player
         return direction;
     }
 
-    public int getObjectsArrayplace(Player player1,ArrayList<Treasure> spawnedEvents)
+    public int getObjectsArrayplace(Player player1,ArrayList<GameEvent> spawnedEvents)
     {
         double closestEvent = 10;
         int event= 0;
@@ -212,7 +212,7 @@ public class Player
         return event;
     }
 
-    public void applyItem(Player player1,ArrayList<Treasure> spawnedEvents)
+    public void applyItem(Player player1,ArrayList<GameEvent> spawnedEvents)
     {
         int event = 0;
         event = getObjectsArrayplace(player1,spawnedEvents);
@@ -220,9 +220,34 @@ public class Player
         {
             player1.playersWeapon.add((Weapon)spawnedEvents.get(event));
             spawnedEvents.remove(spawnedEvents.get(event));
-        }else{}
-        System.out.println("current players weapons " + playersWeapon);
-        System.out.println("all events left "+ spawnedEvents);
+            System.out.println("have obtained a weapon");
+        }
+        else if (spawnedEvents.get(event) instanceof Enemy)
+        {
+            playerFight(player1, spawnedEvents , event);
+
+        }
+        else if (spawnedEvents.get(event) instanceof Armour)
+        {
+            player1.playersArmour.add((Armour)spawnedEvents.get(event));
+            spawnedEvents.remove(spawnedEvents.get(event));
+            System.out.println("have obtained a piece of armour");
+        }
+        else{}
+
+
+
+    }
+
+    public void playerFight(Player player1, ArrayList<GameEvent> spawnedEvents, int event)
+    {
+        GameManger tempScanner = new GameManger();
+        String option = "";
+        //while (player1.health > 0 || spawnedEvents.get(event).gethealth > 0)
+        //{
+          //  System.out.println("a monster has attacked ");
+           // scanner.TakeInput();
+      //  }
 
     }
 

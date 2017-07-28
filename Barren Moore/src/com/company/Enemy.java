@@ -5,16 +5,16 @@ import java.util.ArrayList;
 /**
  * Created by Administrator on 28/07/2017.
  */
-public class Enemy
+public class Enemy extends GameEvent
 {
-    int xPos = 0;
-    int yPos = 0;
+
     int health;
     int defense;
     int attack ;
 
     public Enemy(int xPos , int yPos , int health, int defense , int attack, ArrayList<Weapon> playersWeapon, ArrayList<Armour> playersArmour)
     {
+        super(xPos , yPos);
         this.xPos = xPos;
         this.yPos = yPos;
         this.health = health;
@@ -37,6 +37,22 @@ public class Enemy
 
     public void setyPos(int yPos) {
         this.yPos = yPos;
+    }
+
+    public int getAttack() {
+        return attack;
+    }
+
+    public int getDefense() {
+        return defense;
+    }
+
+    public int getHealth() {
+        return health;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
     }
 
     public void generatePos()
