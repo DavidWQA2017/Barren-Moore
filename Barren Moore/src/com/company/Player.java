@@ -8,7 +8,7 @@ public class Player
     int xPos = 0;
     int yPos = 0;
 
-    public int xPos() {
+    public int getxPos() {
         return xPos;
     }
 
@@ -24,7 +24,32 @@ public class Player
         this.yPos = yPos;
     }
 
-    public void movePlayer()
+    public void movePlayer(String input)
+    {
+
+    }
+
+    public void movePlayerRight()
+    {
+
+    }
+
+    public void movePlayerLeft()
+    {
+
+    }
+
+    public void movePlayerUp()
+    {
+
+    }
+
+    public void movePlayerDown()
+    {
+
+    }
+
+    public void playerlook(String input)
     {
 
     }
