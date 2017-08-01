@@ -127,6 +127,8 @@ public class Player
         utilityMessage();
     }
 
+
+
     public double objectDistance(Player player1, ArrayList<GameEvent> spawnedEvents)
     {
         double currentDistance = 10;
@@ -239,15 +241,63 @@ public class Player
 
     }
 
+    public int genratePlayerAttack(Player player1)
+    {
+        int attack = 0;
+        for(int i = 0;  i < player1.playersWeapon.size(); i++ )
+        {
+            attack = attack + player1.playersWeapon.get(i).getAttackBuff();
+        }
+        return attack;
+    }
+
+    public int generatePlayersDefense(Player player1)
+    {
+        int defense = 0;
+        for(int i = 0;  i < player1.playersArmour.size(); i++ )
+        {
+            defense = defense + player1.playersArmour.get(i).getDefenseBuff();
+        }
+        return defense;
+    }
+
+    public double generatePlayersHealth(Player player1)
+    {
+        int health = player1.health;
+        for(int i = 0;  i < player1.playersArmour.size(); i++ )
+        {
+            health = health + player1.playersArmour.get(i).getHealthBuff();
+        }
+        return health;
+    }
+
     public void playerFight(Player player1, ArrayList<GameEvent> spawnedEvents, int event)
     {
         GameManger tempScanner = new GameManger();
         String option = "";
-        //while (player1.health > 0 || spawnedEvents.get(event).gethealth > 0)
-        //{
-          //  System.out.println("a monster has attacked ");
-           // scanner.TakeInput();
-      //  }
+        //if (spawnedEvents.get(event)instanceof Enemy);
+        double health = generatePlayersHealth(player1);
+        double defense = generatePlayersDefense(player1);
+
+        while (player1.health > 0 || ((Enemy) spawnedEvents.get(event)).getHealth() > 0);
+        {
+            System.out.println("a monster has attacked");
+            option = tempScanner.TakeInput();
+            if( option.equals("attack"))
+            {
+                System.out.println("");
+            }
+            else if (option.equals("defend"))
+            {
+                System.out.println("brace yourself for an attack");
+                health = health - (((Enemy) spawnedEvents.get(event)).getAttack() - (defense * 1.5));
+            }
+            else
+            {
+                System.out.println("you are frozen by fear");
+                health = health - ((Enemy) spawnedEvents.get(event)).getAttack();
+            }
+        }
 
     }
 
