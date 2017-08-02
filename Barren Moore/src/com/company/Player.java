@@ -42,6 +42,30 @@ public class Player
         this.yPos = yPos;
     }
 
+    public int getHealth() {
+        return health;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
+    public int getDefense() {
+        return defense;
+    }
+
+    public void setDefense(int defense) {
+        this.defense = defense;
+    }
+
+    public int getAttack() {
+        return attack;
+    }
+
+    public void setAttack(int attack) {
+        this.attack = attack;
+    }
+
     public void movePlayer(String input , Player player1, ArrayList<GameEvent> spawnedEvents)
     {
       if (input.equals("look"))
@@ -214,8 +238,14 @@ public class Player
         return event;
     }
 
+    public void displayHealth(Player player1)
+    {
+        System.out. println("your health is " + player1.getHealth());
+    }
+
     public void applyItem(Player player1,ArrayList<GameEvent> spawnedEvents)
     {
+        System.out.println("i am working");
         int event = 0;
         event = getObjectsArrayplace(player1,spawnedEvents);
         if (spawnedEvents.get(event) instanceof Weapon)
@@ -227,6 +257,7 @@ public class Player
         else if (spawnedEvents.get(event) instanceof Enemy)
         {
             playerFight(player1, spawnedEvents , event);
+            System.out.println("i am working and found an enemy");
 
         }
         else if (spawnedEvents.get(event) instanceof Armour)
@@ -235,7 +266,10 @@ public class Player
             spawnedEvents.remove(spawnedEvents.get(event));
             System.out.println("have obtained a piece of armour");
         }
-        else{}
+        else
+        {
+            System.out.println("i am broken");
+        }
 
 
 
@@ -271,33 +305,54 @@ public class Player
         return health;
     }
 
+    public void Attack(Player player1, ArrayList<GameEvent> spawnedEvents, int event )
+    {
+        System.out.println(" you swing at the enemy");
+        int attack = player1.genratePlayerAttack(player1);
+        int cEnemyHealth = (((Enemy) spawnedEvents.get(event)).getHealth() - (((Enemy) spawnedEvents.get(event)).getDefense() - attack));
+        ((Enemy) spawnedEvents.get(event)).setHealth(cEnemyHealth);
+
+    }
+
     public void playerFight(Player player1, ArrayList<GameEvent> spawnedEvents, int event)
     {
         GameManger tempScanner = new GameManger();
-        String option = "";
+
         //if (spawnedEvents.get(event)instanceof Enemy);
         double health = generatePlayersHealth(player1);
         double defense = generatePlayersDefense(player1);
+        System.out.println("a monster has attacked stuff");
+        System.out.println("!H: " + player1.getHealth());
+        //System.out.println(((Enemy) spawnedEvents.get(event)).getHealth());
+        //String option = tempScanner.TakeInput();
+        //System.out.println(option);
 
-        while (player1.health > 0 || ((Enemy) spawnedEvents.get(event)).getHealth() > 0);
+        while ((player1.health > 0) || ((Enemy) spawnedEvents.get(event)).getHealth() > 0)
         {
-            System.out.println("a monster has attacked");
-            option = tempScanner.TakeInput();
+            System.out.println(player1.getHealth());
+            String option = tempScanner.TakeInput();
+
             if( option.equals("attack"))
             {
-                System.out.println("");
+                Attack(player1, spawnedEvents, event);
+                ((Enemy) spawnedEvents.get(event)).attack(player1, spawnedEvents, 2);
             }
             else if (option.equals("defend"))
             {
                 System.out.println("brace yourself for an attack");
-                health = health - (((Enemy) spawnedEvents.get(event)).getAttack() - (defense * 1.5));
+                ((Enemy) spawnedEvents.get(event)).getAttack();
+            }
+            else if(option.equals("health"))
+            {
+                player1.displayHealth(player1);
             }
             else
             {
                 System.out.println("you are frozen by fear");
-                health = health - ((Enemy) spawnedEvents.get(event)).getAttack();
+                ((Enemy) spawnedEvents.get(event)).getAttack();
             }
         }
+        System.out.println("i have finished");
 
     }
 

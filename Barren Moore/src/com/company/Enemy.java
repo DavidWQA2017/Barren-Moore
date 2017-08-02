@@ -12,7 +12,7 @@ public class Enemy extends GameEvent
     int defense;
     int attack ;
 
-    public Enemy(int xPos , int yPos , int health, int defense , int attack, ArrayList<Weapon> playersWeapon, ArrayList<Armour> playersArmour)
+    public Enemy(int xPos , int yPos , int health, int defense , int attack)
     {
         super(xPos , yPos);
         this.xPos = xPos;
@@ -63,5 +63,19 @@ public class Enemy extends GameEvent
     public void GenrateAlert()
     {
 
+    }
+
+    public void attack(Player player1, ArrayList<GameEvent> spawnedEvents, int event)
+    {
+        System.out.println("the creature launches into your fiercely grunting");
+        if (spawnedEvents.get(event) instanceof Enemy) {
+            int attack = ((Enemy) spawnedEvents.get(event)).getDefense() - player1.getDefense();
+            if (attack > 0)
+            {
+                player1.setHealth(player1.getHealth() - attack);
+            }
+            else {}
+        }
+        System.out.println("you have been wounded " + attack + " damage has been caused");
     }
 }
