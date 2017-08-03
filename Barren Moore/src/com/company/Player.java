@@ -277,7 +277,7 @@ public class Player
 
     public int genratePlayerAttack(Player player1)
     {
-        int attack = 0;
+        int attack = player1.getAttack();
         for(int i = 0;  i < player1.playersWeapon.size(); i++ )
         {
             attack = attack + player1.playersWeapon.get(i).getAttackBuff();
@@ -309,8 +309,20 @@ public class Player
     {
         System.out.println(" you swing at the enemy");
         int attack = player1.genratePlayerAttack(player1);
-        int cEnemyHealth = (((Enemy) spawnedEvents.get(event)).getHealth() - (((Enemy) spawnedEvents.get(event)).getDefense() - attack));
-        ((Enemy) spawnedEvents.get(event)).setHealth(cEnemyHealth);
+        int damage = (attack -((Enemy) spawnedEvents.get(event)).getDefense());
+        if (damage < 0)
+        {
+            System.out.println(" you ricochet of the enemy causing no damage ");
+        }
+        else
+        {
+            System.out.println("enemy defense" + ((Enemy) spawnedEvents.get(event)).getDefense());
+            System.out.println("player attack " + attack);
+            System.out.println("current damage being dealt " + damage);
+            int cEnemyHealth = (((Enemy) spawnedEvents.get(event)).getHealth() - damage);
+            System.out.println("current enemy health " + cEnemyHealth);
+            ((Enemy) spawnedEvents.get(event)).setHealth(cEnemyHealth);
+        }
 
     }
 
@@ -321,13 +333,17 @@ public class Player
         //if (spawnedEvents.get(event)instanceof Enemy);
         double health = generatePlayersHealth(player1);
         double defense = generatePlayersDefense(player1);
+        boolean fightstate = true;
+        boolean victoryCondition = false;
         System.out.println("a monster has attacked stuff");
         System.out.println("!H: " + player1.getHealth());
         //System.out.println(((Enemy) spawnedEvents.get(event)).getHealth());
         //String option = tempScanner.TakeInput();
         //System.out.println(option);
 
-        while ((player1.health > 0) || ((Enemy) spawnedEvents.get(event)).getHealth() > 0)
+        while (fightstate == true)
+               // (!(player1.health < 0) || ((Enemy) spawnedEvents.get(event)).getHealth() < 0)
+
         {
             System.out.println(player1.getHealth());
             String option = tempScanner.TakeInput();
@@ -335,7 +351,7 @@ public class Player
             if( option.equals("attack"))
             {
                 Attack(player1, spawnedEvents, event);
-                ((Enemy) spawnedEvents.get(event)).attack(player1, spawnedEvents, 2);
+                ((Enemy) spawnedEvents.get(event)).attack(player1, spawnedEvents, event);
             }
             else if (option.equals("defend"))
             {
@@ -351,6 +367,8 @@ public class Player
                 System.out.println("you are frozen by fear");
                 ((Enemy) spawnedEvents.get(event)).getAttack();
             }
+
+            fightstate = tempScanner.checkbattleResult(player1, spawnedEvents, event);
         }
         System.out.println("i have finished");
 

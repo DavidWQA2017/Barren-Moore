@@ -9,10 +9,10 @@ public class Main {
     {
 
 	    GameManger game = new GameManger();
-        Player player1 = new Player(0, 0, 5, 2, 2);
+        Player player1 = new Player(0, 0, 5, 2, 3);
         TreasureChest goal = new TreasureChest(12,12);
         Weapon sword = new Weapon(8, 8, 2);
-        Enemy  enemey1 = new Enemy(4, 4, 4, 0, 3);
+        Enemy  enemey1 = new Enemy(4, 4, 4, 0, 2);
         Grid playerMap =  new Grid();
         Grid gameMap = new Grid();
         String input = "input";

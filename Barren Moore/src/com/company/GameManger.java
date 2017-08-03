@@ -14,8 +14,6 @@ public class GameManger
     {
         Scanner in = new Scanner(System.in);
         String input = in.nextLine().toLowerCase();
-
-
         return input;
     }
 
@@ -35,4 +33,26 @@ public class GameManger
             player1.applyItem(player1, spawnedEvents);
         }
     }
+
+    public boolean checkbattleResult(Player player1, ArrayList<GameEvent>  spawnedEvents , int event)
+    {
+        boolean fightstate;
+        if (player1.getHealth() <= 0)
+        {
+            fightstate = false;
+        }
+        else if(((Enemy)spawnedEvents.get(event)).getHealth() <= 0)
+        {
+            fightstate = false;
+        }
+        else
+        {
+            fightstate = true;
+        }
+        return fightstate;
+    }
+
+    public void battleVictory(){}
+
+    public void battleLoss(){}
 }

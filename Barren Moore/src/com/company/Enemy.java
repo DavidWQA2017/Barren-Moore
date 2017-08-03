@@ -69,13 +69,13 @@ public class Enemy extends GameEvent
     {
         System.out.println("the creature launches into your fiercely grunting");
         if (spawnedEvents.get(event) instanceof Enemy) {
-            int attack = ((Enemy) spawnedEvents.get(event)).getDefense() - player1.getDefense();
+            int attack = ((Enemy) spawnedEvents.get(event)).getAttack() - player1.getDefense();
             if (attack > 0)
             {
                 player1.setHealth(player1.getHealth() - attack);
             }
             else {}
+            System.out.println("you have been wounded " + attack + " damage has been caused");
         }
-        System.out.println("you have been wounded " + attack + " damage has been caused");
     }
 }
