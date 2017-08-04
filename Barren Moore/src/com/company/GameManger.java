@@ -52,7 +52,14 @@ public class GameManger
         return fightstate;
     }
 
-    public void battleVictory(){}
+    public void battleVictory(ArrayList<GameEvent> spawnedEvents, int event)
+    {
+        spawnedEvents.remove(event);
+    }
 
-    public void battleLoss(){}
+    public void battleLoss()
+    {
+        System.out.println("GAME OVER YOU DIED");
+
+    }
 }
